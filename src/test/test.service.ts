@@ -29,6 +29,9 @@ export class TestService {
     });
   }
 
+  async getAll() {
+    return await this.testEntityRepository.find();
+  }
   async setOne(data: CreateTestDto): Promise<TestEntity> {
     return await this.testEntityRepository.save(data);
   }
@@ -37,7 +40,7 @@ export class TestService {
     data: GetTestDto,
     update: UpdateTestDto,
   ): Promise<TestEntity> {
-    const foundData = await this.getOne(data.id)
+    const foundData = await this.getOne(data.id);
     const merged = await this.testEntityRepository.merge(foundData, update);
     return await this.testEntityRepository.save(merged);
   }
